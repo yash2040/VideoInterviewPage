@@ -16,3 +16,7 @@ You can Change number of questions by going to javascript there is a variable ca
 and number of videos currently present is 5 also.
 
 I have used map data structure to store comments and rating for each question , store for saving rating and store_comment for saving Comments related to questions.
+
+index.php is just for deployed purpose on heroku.
+
+Deployed Link: https://video-interview-page.herokuapp.com/
