@@ -5,39 +5,35 @@ function calc_rating() {
     let qno = document.getElementById("qno").value;
     $star_rating.siblings('input.rating-value').val(store[qno]);
     return SetRatingStar();
-    console.log(qno, store);
 }
 
 function move_right() {
     let qno = document.getElementById("qno").value;
     qno = parseInt(qno);
     let rating = $star_rating.siblings('input.rating-value').val();
-    document.getElementById("noti").hidden=true;
+    document.getElementById("noti").hidden = true;
     //Modify Number Of questions Here
-    let noOfQuestions=5;
+    let noOfQuestions = 5;
     store[qno] = rating;
     update();
-    mystr=`<p style="font-size: 30px; text-align: center;"><b>Results:</b></p>`;
-    mystr+=`<table class="table table-light tabledimensions"><thead><tr><th scope="col">Qno</th><th scope="col">Given Rating</th><th scope="col">Comment: </th></tr></thead><tbody>`;
+    mystr = `<p style="font-size: 30px; text-align: center;"><b>Results:</b></p>`;
+    mystr += `<table class="table table-light tabledimensions"><thead><tr><th scope="col">Qno</th><th scope="col">Given Rating</th><th scope="col">Comment: </th></tr></thead><tbody>`;
 
     if (qno == noOfQuestions) {
-        document.getElementById("videos").hidden=true;
-        document.getElementById("comment-box").hidden=true;
-        document.getElementById("rate").hidden=true;
-        document.getElementById("comment-save-button").hidden=true;
-        document.getElementById("feedback-done").hidden=false;
-        document.getElementById("curr-qno").innerHTML="END";
+        document.getElementById("videos").hidden = true;
+        document.getElementById("comment-box").hidden = true;
+        document.getElementById("rate").hidden = true;
+        document.getElementById("comment-save-button").hidden = true;
+        document.getElementById("feedback-done").hidden = false;
+        document.getElementById("curr-qno").innerHTML = "END";
         $('#items').empty();
-        console.log("FINAL OUTPUT");
         Object.keys(store).forEach(function(key) {
-            console.log(store[key]);
-            if(store_comment[key] === undefined)
-                store_comment[key]="No Comments";
-            if(store[key] == 0)
-                store[key]="Not Graded";
+            if (store_comment[key] === undefined)
+                store_comment[key] = "No Comments";
+            if (store[key] == 0)
+                store[key] = "Not Graded";
         });
         Object.keys(store).forEach(function(key) {
-            console.log(key, store[key], store_comment[key]);
             mystr += `<tr>
       <th scope="row">${key}</th>
       <td>${store[key]}</td>
@@ -49,7 +45,7 @@ function move_right() {
         mystr += `</tbody>
                 </table>`;
         $('#items').append(mystr);
-        document.getElementById("right").disabled=true;
+        document.getElementById("right").disabled = true;
         return;
     }
     qno = qno + 1;
@@ -58,7 +54,6 @@ function move_right() {
     let next = "videos/v";
     next += qno;
     next += ".mp4";
-    console.log(next);
     document.getElementById("video").src = next;
     calc_rating();
 
@@ -69,29 +64,27 @@ function move_left() {
     let qno = document.getElementById("qno").value;
     qno = parseInt(qno);
     let rating = $star_rating.siblings('input.rating-value').val();
-    document.getElementById("right").disabled=false;
-    document.getElementById("videos").hidden=false;
-    document.getElementById("comment-box").hidden=false;
-    document.getElementById("rate").hidden=false;
-    document.getElementById("comment-save-button").hidden=false;
-    document.getElementById("noti").hidden=true;
-    
+    document.getElementById("right").disabled = false;
+    document.getElementById("videos").hidden = false;
+    document.getElementById("comment-box").hidden = false;
+    document.getElementById("rate").hidden = false;
+    document.getElementById("comment-save-button").hidden = false;
+    document.getElementById("noti").hidden = true;
+
     $('#items').empty();
     store[qno] = rating;
     update();
     if (qno == 1)
         return;
-    if(document.getElementById("feedback-done").hidden==true)
-    {
-        qno=qno-1;
+    if (document.getElementById("feedback-done").hidden == true) {
+        qno = qno - 1;
     }
-    document.getElementById("feedback-done").hidden=true;
+    document.getElementById("feedback-done").hidden = true;
     document.getElementById("curr-qno").innerHTML = qno;
     document.getElementById("qno").value = qno;
     let next = "videos/v";
     next += qno;
     next += ".mp4";
-    console.log(next);
     document.getElementById("video").src = next;
     calc_rating();
 }
@@ -102,8 +95,7 @@ function submitcomment() {
     var comment = document.getElementById("comment").value;
     store_comment[qno] = comment;
     document.getElementById("comment").value = "";
-    console.log(comment);
-    document.getElementById("noti").hidden=false;
+    document.getElementById("noti").hidden = false;
 
 
 }
@@ -123,8 +115,6 @@ $star_rating.on('click', function() {
 
     $star_rating.siblings('input.rating-value').val($(this).data('rating'));
 
-    console.log(parseInt($star_rating.siblings('input.rating-value').val()));
-
     return SetRatingStar();
 });
 
@@ -133,10 +123,9 @@ $(document).ready(function() {
 
 });
 
+//Used for updating Radar Chart 
 function update() {
-    // our data from bulbapedia
-    console.log("ss");
-    console.log(store);
+
     document.getElementById("container").innerHTML = "";
     var data1 = [];
     var value;
@@ -170,7 +159,7 @@ function update() {
             });
     });
 
-    console.log(data1);
+
     // create radar chart
     var chart = anychart.radar();
     // set chart yScale settings
@@ -196,4 +185,3 @@ function update() {
     chart.draw();
 
 }
-    
